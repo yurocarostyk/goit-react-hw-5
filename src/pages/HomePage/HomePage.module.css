@@ -1,0 +1,10 @@
+/* src/pages/HomePage.module.css */
+.container {
+    padding: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
