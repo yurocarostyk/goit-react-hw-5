@@ -1,29 +1,34 @@
-// src/components/MovieCast.jsx
-import React, { useEffect, useState } from 'react';
-import { fetchMovieCast } from '../../api/tmdb';
-import styles from './MovieCast.module.css';
-
-const MovieCast = ({ movieId }) => {
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchMovieCast } from '../../api/tmdb'; 
+const MovieCast = () => {
+  const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
     const getCast = async () => {
-      const castData = await fetchMovieCast(movieId);
-      setCast(castData);
+      try {
+        const data = await fetchMovieCast(movieId);
+        setCast(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     getCast();
   }, [movieId]);
 
   return (
-    <ul className={styles.castList}>
-      {cast.map(actor => (
-        <li key={actor.id} className={styles.castItem}>
-          {actor.name} as {actor.character}
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h2>Cast</h2>
+      <ul>
+        {cast.map(member => (
+          <li key={member.id}>{member.name}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
 export default MovieCast;
+

@@ -1,25 +1,25 @@
-// src/App.jsx
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
-import Loader from './components/Loader/Loader';
-import './App.css';
 
-// Використання React.lazy для імпорту сторінок
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
-const MoviesPage = lazy(() => import('./pages/MoviesPage/MoviesPage'));
-const MovieDetailsPage = lazy(() => import('./pages/MovieDetailsPage/MovieDetailsPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'));
+const MoviesPage = React.lazy(() => import('./pages/MoviesPage/MoviesPage'));
+const MovieDetailsPage = React.lazy(() => import('./pages/MovieDetailsPage/MovieDetailsPage'));
+const MovieCast = React.lazy(() => import('./components/MovieCast/MovieCast'));
+const MovieReviews = React.lazy(() => import('./components/MovieReviews/MovieReviews'));
 
 const App = () => (
   <Router>
     <Navigation />
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId/*" element={<MovieDetailsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
+        <Route path="*" element={<div>Page not found</div>} />
       </Routes>
     </Suspense>
   </Router>

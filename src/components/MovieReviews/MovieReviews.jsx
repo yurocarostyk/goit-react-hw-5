@@ -1,29 +1,40 @@
-// src/components/MovieReviews.jsx
-import React, { useEffect, useState } from 'react';
-import { fetchMovieReviews } from '../../api/tmdb';
-import styles from './MovieReviews.module.css';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchMovieReviews } from '../../api/tmdb'; 
 
-const MovieReviews = ({ movieId }) => {
+const MovieReviews = () => {
+  const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const getReviews = async () => {
-      const reviewsData = await fetchMovieReviews(movieId);
-      setReviews(reviewsData);
+      try {
+        const data = await fetchMovieReviews(movieId);
+        setReviews(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     getReviews();
   }, [movieId]);
 
   return (
-    <ul className={styles.reviewsList}>
-      {reviews.map(review => (
-        <li key={review.id} className={styles.reviewItem}>
-          <h3>{review.author}</h3>
-          <p>{review.content}</p>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h2>Reviews</h2>
+      {reviews.length > 0 ? (
+        <ul>
+          {reviews.map(review => (
+            <li key={review.id}>
+              <h3>{review.author}</h3>
+              <p>{review.content}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No reviews found</p>
+      )}
+    </div>
   );
 };
 

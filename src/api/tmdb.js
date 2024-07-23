@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMzkxZGMwNWE1OTQ5YTQ5YzIwZjc2ZWNjYzY5NTFiYyIsIm5iZiI6MTcyMTYyMjgzMy4xMTk4OCwic3ViIjoiNjY5NzYwYzM4YTA5YzQ1MmNjMGNlYzQ5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.hAhXLGglX67hVYmW1yTMgPoSw5A5mKk_pb6UpRo9GfE';  

@@ -1,15 +1,37 @@
-/* src/components/Navigation.module.css */
-.nav {
-    background-color: #333;
-    padding: 1rem;
+/* Navigation.css */
+
+nav {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
   }
   
-  .nav a {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 15px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  a:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+  }
+  
+  .active {
+    background-color: #007bff;
     color: white;
-    margin-right: 1rem;
-  }
-  
-  .nav a.active {
-    font-weight: bold;
   }
   
