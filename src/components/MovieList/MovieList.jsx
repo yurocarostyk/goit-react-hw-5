@@ -1,36 +1,29 @@
-// src/components/MovieList.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+import styles from './MovieList.module.css';
 
-const MovieList = ({ movies, getFullImageUrl }) => (
-  <ul>
-    {movies.map(movie => (
-      <li key={movie.id}>
-        <Link to={`/movies/${movie.id}`}>
-          {movie.poster_path && (
+const MovieList = ({ movies, getFullImageUrl }) => {
+  const location = useLocation();
+
+  return (
+    <ul className={styles.movieList}>
+      {movies.map((movie) => (
+        <li key={movie.id} className={styles.movieItem}>
+          <Link
+            to={`/movies/${movie.id}`}
+            state={{ from: location }}
+          >
             <img
               src={getFullImageUrl(movie.poster_path)}
               alt={movie.title}
-              width="100"
+              className={styles.movieImage}
             />
-          )}
-          <p>{movie.title}</p>
-        </Link>
-      </li>
-    ))}
-  </ul>
-);
-
-MovieList.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      poster_path: PropTypes.string,
-    })
-  ).isRequired,
-  getFullImageUrl: PropTypes.func.isRequired,
+            <p className={styles.movieTitle}>{movie.title}</p>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default MovieList;
